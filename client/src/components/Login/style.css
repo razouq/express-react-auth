@@ -1,0 +1,64 @@
+.wrapper {
+  background-color: #F9FBFD;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container {
+  padding: 2rem;
+  background-color: #FFFFFF;
+  height: 50vh;
+  width: 40rem;
+  border-radius: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 1rem 0;
+  display: inline-block;
+  border: none;
+  background-color: #F2F2F2;
+  border-radius: 4px;
+  font-size: 2rem;
+  box-sizing: border-box;
+}
+
+input:focus {
+  outline: none;
+  background-color: #EDEDED;
+}
+
+.title {
+  font-size: 2rem;
+  text-align: center;
+  margin: 2rem 0;
+  color: #444;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 2rem;
+  border-radius: 4px;
+  margin: 2rem 0;
+  cursor: pointer;
+  border: none;
+  background-color: #2F7FB7;
+  color: #FFF;
+}
+
+.btn-login:focus,
+.btn-login:hover {
+  outline: none;
+  background-color: #1B73B0;
+}
+
+.link-forgot {
+  display: inline-block;
+  font-size: 1.5rem;
+  text-align: right;
+  width: 100%;
+}
