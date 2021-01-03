@@ -60,7 +60,7 @@ const authenticatedUser = (req, res, next) => {
   return next();
 }
 
-app.get('/', authenticatedUser, (req, res) => {
+app.get('/api', (req, res) => {
   return res.json({
     hello: 'world',
   });
