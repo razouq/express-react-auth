@@ -6,7 +6,10 @@ const session = require('express-session');
 
 const app = express();
 app.use(bodyParser.json());
-app.use(session({secret: 'razouq'}));
+
+app.use(session({secret: 'razouq', name: 'coookiza', resave: true, saveUninitialized: true}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 const users = [
   {
@@ -31,7 +34,7 @@ passport.use(new LocalStrategy(
     const user = users.find(user => user.username === username);
     // in case of exception retunr done(err)
     if(!user) {
-      return done(null, false, {message: 'incorrect username or password'});
+      return done(null, false);
     }
     // the password does not match
     if(user.password !== password) {
@@ -42,22 +45,37 @@ passport.use(new LocalStrategy(
   }
 ))
 
-app.use(passport.initialize());
-app.use(passport.session());
+
 
 // auth routing
-app.post('/login', (req, res, next) => {
-  console.log('hello');
-  next();
-}, passport.authenticate('local',{ successRedirect: '/',
-failureRedirect: '/login',
-failureFlash: true }));
+app.post('/login', passport.authenticate('local', { 
+  successRedirect: '/',
+  failureRedirect: '/login',
+}));
 
-app.get('/', (req, res) => {
+const authenticatedUser = (req, res, next) => {
+  if(!req.user) {
+    return res.redirect('/login');
+  }
+  return next();
+}
+
+app.get('/', authenticatedUser, (req, res) => {
   return res.json({
     hello: 'world',
   });
 });
 
+app.post('/signup', (req, res) => {
+  const {username, password} = req.body;
+  users.push({id: username, username, password});
+  return res.redirect('/login');
+});
+
+app.get('/sessions', async (req, res) => {
+  const sessions = await req.sessionStore.sessions;
+  return res.json(sessions);
+})
+
 const PORT = process.env.PORT || 5000;
-app.listen(5000, () => console.log('server started listening on port: ', 5000));
+app.listen(PORT, () => console.log('server started listening on port: ', PORT));
