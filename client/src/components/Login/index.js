@@ -9,8 +9,13 @@ const Login = () => {
 
   const onSubmit = async (data) => {
     console.log(data);
-    const res = await axios.get('/api');
-    console.log(res);
+    let res;
+    try {
+      res = await axios.post('/api/login', data);
+    } catch(e) {
+      console.log('e', e?.response?.data);
+    }
+    console.log('res', res);
   };
 
   return (
@@ -18,7 +23,7 @@ const Login = () => {
       <div className="container">
         <h1 className="title">Login to your account</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <input name="email" type="text" ref={register} placeholder="email" />
+          <input name="username" type="text" ref={register} placeholder="email" />
           <input name="password" type="password" ref={register} placeholder="password" />
           <a href="#" className="link-forgot">
             forgot password

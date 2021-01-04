@@ -8,10 +8,11 @@
 
 .container {
   padding: 2rem;
-  background-color: #FFFFFF;
+  background-color: #FFF;
   height: 50vh;
   width: 40rem;
   border-radius: 5px;
+  margin: 0 1rem;
 }
 
 input {
