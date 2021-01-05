@@ -1,14 +1,18 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Login from "./components/Login";
+import Header from './components/Header';
 
 const App = () => {
   return (
     <Router>
-      <Route path="/login">
-        <Login />
-      </Route>
+      <Header />
+      <Switch>
+        <Route path="/login">
+          <Login />
+        </Route>
+      </Switch>
     </Router>
   );
 };

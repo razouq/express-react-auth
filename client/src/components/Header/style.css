@@ -1,0 +1,39 @@
+.header__container {
+  height: 7vh;
+  background-color: #FFF;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8rem;
+}
+
+.header__logo {
+  color: #005792;
+  font-size: 4rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.header__links {
+  font-size: 3rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__link {
+  margin-left: 2rem;
+  padding: 1rem;
+  color: #444;
+  font-weight: 400;
+  border-radius: 1rem;
+  transition: all .3s;
+  cursor: pointer;
+  text-decoration: none;
+
+}
+
+.header__link:hover {
+  background-color: #2F7FB7;
+  color: #FFF;
+}
