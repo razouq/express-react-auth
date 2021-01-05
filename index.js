@@ -4,6 +4,18 @@ const bodyParser = require("body-parser");
 const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session");
 
+const mongoose = require("mongoose");
+
+require('./models/users.model');
+
+const User = mongoose.model('User');
+
+mongoose.connect(
+  "mongodb://localhost:27017/express-react-auth",
+  { useNewUrlParser: true, useUnifiedTopology: true },
+  () => console.log('connected to DB')
+);
+
 const app = express();
 app.use(bodyParser.json());
 
@@ -25,6 +37,12 @@ const users = [
     password: "123",
   },
 ];
+
+app.post('/api/signup', async (req, res) => {
+  const {body} = req;
+  const user = await new User(body).save({new: true});
+  return res.json(user);
+})
 
 passport.serializeUser(function (user, done) {
   done(null, user.id);
@@ -53,25 +71,23 @@ passport.use(
 );
 
 // auth routing
-app.post(
-  "/api/login", (req, res) => {
-    (passport.authenticate("local", (err, user, info) => {
-      if (err) {
-        return res.status(400).json({
-          message: 'error',
-        });
-      }
-  
-      if (!user) {
-        return res.status(400).json({
-          message: "wrong username or password",
-        });
-      }
-  
-      return res.json(user);
-    }))(req, res);
-  }
-);
+app.post("/api/login", (req, res) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      return res.status(400).json({
+        message: "error",
+      });
+    }
+
+    if (!user) {
+      return res.status(400).json({
+        message: "wrong username or password",
+      });
+    }
+
+    return res.json(user);
+  })(req, res);
+});
 
 const authenticatedUser = (req, res, next) => {
   if (!req.user) {
