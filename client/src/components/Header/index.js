@@ -9,7 +9,7 @@ function Header(props) {
       <Link class="header__logo">Logo</Link>
       <div className="header__links">
         <Link to='/login' className="header__link">Login</Link>
-        <Link to='/' className="header__link">Signup</Link>
+        <Link to='/signup' className="header__link">Signup</Link>
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-.login__wrapper {
+.signup__wrapper {
   background-color: #F9FBFD;
   height: 93vh;
   display: flex;
@@ -6,7 +6,7 @@
   justify-content: center;
 }
 
-.login__container {
+.signup__container {
   padding: 2rem;
   background-color: #FFF;
   height: 50vh;
@@ -32,14 +32,14 @@ input:focus {
   background-color: #EDEDED;
 }
 
-.login__title {
+.signup__title {
   font-size: 2rem;
   text-align: center;
   margin: 2rem 0;
   color: #444;
 }
 
-.login__btn {
+.signup__btn {
   width: 100%;
   padding: 12px 20px;
   font-size: 2rem;
@@ -52,13 +52,13 @@ input:focus {
   letter-spacing: .5rem;
 }
 
-.login__btn:focus,
-.login__btn:hover {
+.signup__btn:focus,
+.signup__btn:hover {
   outline: none;
   background-color: #1B73B0;
 }
 
-.login__link--forgot {
+.signup__link--forgot {
   display: inline-block;
   font-size: 1.5rem;
   text-align: right;

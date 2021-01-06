@@ -19,16 +19,16 @@ const Login = () => {
   };
 
   return (
-    <div className="wrapper">
-      <div className="container">
-        <h1 className="title">Login to your account</h1>
+    <div className="login__wrapper">
+      <div className="login__container">
+        <h1 className="login__title">Login to your account</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <input name="username" type="text" ref={register} placeholder="email" />
           <input name="password" type="password" ref={register} placeholder="password" />
-          <a href="#" className="link-forgot">
+          <a href="#" className="login__link--forgot">
             forgot password
           </a>
-          <button className="btn-login" type="submit">
+          <button className="login__btn" type="submit">
             Login
           </button>
         </form>
