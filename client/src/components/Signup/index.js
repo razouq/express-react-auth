@@ -6,7 +6,7 @@ import './style.css';
 
 const Signup = () => {
 
-  const { handleSubmit, register } = useForm();
+  const { handleSubmit, register, errors } = useForm();
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -18,6 +18,7 @@ const Signup = () => {
     }
     console.log('res', res);
   };
+  console.log(errors);
   return (
     <div className="signup__wrapper">
       <div className="signup__container">
@@ -27,9 +28,6 @@ const Signup = () => {
           <input name="lastname" type="text" ref={register} placeholder="lastname" />
           <input name="username" type="email" ref={register} placeholder="email" />
           <input name="password" type="password" ref={register} placeholder="password" />
-          <a href="#" className="signup__link--forgot">
-            forgot password
-          </a>
           <button className="signup__btn" type="submit">
             Signup
           </button>
