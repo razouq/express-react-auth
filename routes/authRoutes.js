@@ -17,7 +17,8 @@ module.exports = (app) => {
           message: "wrong username or password",
         });
       }
-
+      user = user.toObject();
+      delete user.password;
       return res.json(user);
     })(req, res);
   });
