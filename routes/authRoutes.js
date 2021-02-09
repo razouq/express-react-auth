@@ -1,5 +1,6 @@
-const {model} = require('mongoose');
-const User = model('User');
+const { model } = require("mongoose");
+const passport = require("passport");
+const User = model("User");
 const uniqueUsername = require("../middlewares/uniqueUsername");
 
 module.exports = (app) => {

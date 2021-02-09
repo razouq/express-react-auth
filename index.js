@@ -5,8 +5,11 @@ const LocalStrategy = require("passport-local").Strategy;
 const session = require("express-session");
 
 const mongoose = require("mongoose");
+const {model} = mongoose;
 
 require('./models/users.model');
+
+const User = model('User');
 const authRoute = require("./routes/authRoutes");
 
 mongoose.connect(
@@ -37,21 +40,19 @@ const users = [
   },
 ];
 
-
-
-passport.serializeUser(function (user, done) {
+passport.serializeUser( (user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser(function (id, done) {
-  const user = users.find((user) => user.id === id);
+passport.deserializeUser(async (id, done) => {
+  const user = await User.findById(id);
   done(null, user);
 });
 
 passport.use(
-  new LocalStrategy(function (username, password, done) {
+  new LocalStrategy(async (username, password, done) => {
     // find the user
-    const user = users.find((user) => user.username === username);
+    const user = await User.findOne({username});
     // in case of exception retunr done(err)
     if (!user) {
       return done(null, false);
@@ -71,12 +72,6 @@ const authenticatedUser = (req, res, next) => {
   }
   return next();
 };
-
-app.get("/api", authenticatedUser, (req, res) => {
-  return res.json({
-    hello: "world",
-  });
-});
 
 authRoute(app);
 
