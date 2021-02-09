@@ -7,8 +7,7 @@ const session = require("express-session");
 const mongoose = require("mongoose");
 
 require('./models/users.model');
-
-const User = mongoose.model('User');
+const authRoute = require("./routes/authRoutes");
 
 mongoose.connect(
   "mongodb://localhost:27017/express-react-auth",
@@ -38,11 +37,7 @@ const users = [
   },
 ];
 
-app.post('/api/signup', async (req, res) => {
-  const {body} = req;
-  const user = await new User(body).save({new: true});
-  return res.json(user);
-})
+
 
 passport.serializeUser(function (user, done) {
   done(null, user.id);
@@ -70,25 +65,6 @@ passport.use(
   })
 );
 
-// auth routing
-app.post("/api/login", (req, res) => {
-  passport.authenticate("local", (err, user, info) => {
-    if (err) {
-      return res.status(400).json({
-        message: "error",
-      });
-    }
-
-    if (!user) {
-      return res.status(400).json({
-        message: "wrong username or password",
-      });
-    }
-
-    return res.json(user);
-  })(req, res);
-});
-
 const authenticatedUser = (req, res, next) => {
   if (!req.user) {
     return res.redirect("/login");
@@ -102,16 +78,18 @@ app.get("/api", authenticatedUser, (req, res) => {
   });
 });
 
-app.post("/signup", (req, res) => {
-  const { username, password } = req.body;
-  users.push({ id: username, username, password });
-  return res.redirect("/login");
-});
+authRoute(app);
 
-app.get("/sessions", async (req, res) => {
-  const sessions = await req.sessionStore.sessions;
-  return res.json(sessions);
-});
+if(process.env.NODE_ENV === 'production') {
+  // main.js main.css ...
+  app.use(express.static('client/build'));
+
+  // serve index.html
+  app.get('*', (req, res) => {
+    // path.resolve returns a string with the absolute path
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  })
+}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log("server started listening on port: ", PORT));
