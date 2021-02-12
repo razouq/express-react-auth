@@ -64,3 +64,9 @@ input:focus {
   text-align: right;
   width: 100%;
 }
+
+.signup__error {
+  font-size: 1.5rem;
+  color: red;
+  text-align: center;
+}

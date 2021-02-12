@@ -7,7 +7,7 @@ const session = require("express-session");
 const mongoose = require("mongoose");
 const {model} = mongoose;
 
-require('./models/users.model');
+require('./models/user');
 
 const User = model('User');
 const authRoute = require("./routes/authRoutes");
@@ -31,14 +31,6 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-
-const users = [
-  {
-    id: "1234567890",
-    username: "anass",
-    password: "123",
-  },
-];
 
 passport.serializeUser( (user, done) => {
   done(null, user.id);
