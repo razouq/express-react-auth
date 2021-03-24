@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express");
 const passport = require("passport");
 const bodyParser = require("body-parser");
@@ -11,7 +12,7 @@ require('./services/passport');
 const authRoute = require("./routes/authRoutes");
 
 mongoose.connect(
-  "mongodb://localhost:27017/express-react-auth",
+  process.env.MONGO_URI,
   { useNewUrlParser: true, useUnifiedTopology: true },
   () => console.log('connected to DB')
 );
@@ -21,8 +22,7 @@ app.use(bodyParser.json());
 
 app.use(
   session({
-    secret: "razouq",
-    name: "coookiza",
+    secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true,
   })
